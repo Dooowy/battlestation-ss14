@@ -20,6 +20,7 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
+using Robust.Shared.GameObjects;
 
 namespace Content.Server.Fluids.EntitySystems;
 
@@ -208,7 +209,7 @@ public sealed class SmokeSystem : EntitySystem
         var tile = mapGrid.GetTileRef(xform.Coordinates.ToVector2i(EntityManager, _mapManager));
 
         var solutionFraction = 1 / Math.Floor(frameTime);
-        var ents = _lookup.GetEntitiesIntersecting(tile, 0f, flags: LookupFlags.Uncontained).ToArray();
+        var ents = _lookup.GetEntitiesIntersecting(tile, flags: LookupFlags.Uncontained).ToArray();
 
         foreach (var reagentQuantity in solution.Contents.ToArray())
         {

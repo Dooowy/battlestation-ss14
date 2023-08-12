@@ -27,7 +27,7 @@ namespace Content.Server.Shuttles.Systems;
 /// <summary>
 /// If enabled spawns players on a separate arrivals station before they can transfer to the main station.
 /// </summary>
-public sealed class ArrivalsSystem : EntitySystem
+public sealed partial class ArrivalsSystem : EntitySystem
 {
     [Dependency] private readonly IConfigurationManager _cfgManager = default!;
     [Dependency] private readonly IConsoleHost _console = default!;
@@ -384,30 +384,5 @@ public sealed class ArrivalsSystem : EntitySystem
 
         // If it's a latespawn station then this will fail but that's okey
         SetupShuttle(uid, component);
-    }
-
-    private void SetupShuttle(EntityUid uid, StationArrivalsComponent component)
-    {
-        if (!Deleted(component.Shuttle))
-            return;
-
-        // Spawn arrivals on a dummy map then dock it to the source.
-        var dummyMap = _mapManager.CreateMap();
-
-        if (TryGetArrivals(out var arrivals) &&
-            _loader.TryLoad(dummyMap, component.ShuttlePath.ToString(), out var shuttleUids))
-        {
-            component.Shuttle = shuttleUids[0];
-            var shuttleComp = Comp<ShuttleComponent>(component.Shuttle);
-            var arrivalsComp = EnsureComp<ArrivalsShuttleComponent>(component.Shuttle);
-            arrivalsComp.Station = uid;
-            EnsureComp<ProtectedGridComponent>(uid);
-            _shuttles.FTLTravel(component.Shuttle, shuttleComp, arrivals, hyperspaceTime: 10f, dock: true);
-            arrivalsComp.NextTransfer = _timing.CurTime + TimeSpan.FromSeconds(_cfgManager.GetCVar(CCVars.ArrivalsCooldown));
-        }
-
-        // Don't start the arrivals shuttle immediately docked so power has a time to stabilise?
-        var timer = AddComp<TimedDespawnComponent>(_mapManager.GetMapEntityId(dummyMap));
-        timer.Lifetime = 15f;
     }
 }
