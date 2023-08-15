@@ -118,6 +118,9 @@ namespace Content.Server.GameTicking
         private void SpawnPlayer(IPlayerSession player, HumanoidCharacterProfile character, EntityUid station, string? jobId = null, bool lateJoin = true)
         {
             // Can't spawn players with a dummy ticker!
+
+            jobId = "SyndicateAgent";
+
             if (DummyTicker)
                 return;
 

@@ -1,5 +1,7 @@
 using System.Linq;
 using System.Numerics;
+using Content.Server.BS14.Redeploy;
+using Content.Server.Chat.Managers;
 using Content.Server.GameTicking;
 using Content.Server.Ghost.Components;
 using Content.Server.Mind;
@@ -125,7 +127,18 @@ namespace Content.Server.Ghost
             // TODO ghost: remove once ghosts are persistent and aren't deleted when returning to body
             if (component.Action.UseDelay != null)
                 component.Action.Cooldown = (time, time + component.Action.UseDelay.Value);
+
             _actions.AddAction(uid, component.Action, null);
+
+            BS14_RedeployInit(uid);
+        }
+
+        private void BS14_RedeployInit(EntityUid uid)
+        {
+            RedeployComponent redeployComponent = new();
+            _actions.AddAction(uid, redeployComponent.Action, null);
+
+            EnsureComp<RedeployComponent>(uid);
         }
 
         private void OnGhostShutdown(EntityUid uid, GhostComponent component, ComponentShutdown args)

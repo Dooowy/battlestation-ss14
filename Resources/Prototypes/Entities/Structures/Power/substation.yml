@@ -198,8 +198,8 @@
   suffix: Basic, 2.5MJ
   components:
   - type: Battery
-    maxCharge: 2500000
-    startingCharge: 2500000
+    maxCharge: 992500000
+    startingCharge: 992500000
 
 - type: entity
   parent: SubstationBasic

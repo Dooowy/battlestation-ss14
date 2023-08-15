@@ -6,6 +6,8 @@
     - Xeno
     - PetsNT
     - Zombie
+    - SuperHostile
+    - Mercenary
 
 - type: npcFaction
   id: NanoTrasen
@@ -14,11 +16,15 @@
   - Syndicate
   - Xeno
   - Zombie
+  - SuperHostile
+  - Mercenary
 
 - type: npcFaction
   id: Mouse
   hostile:
     - PetsNT
+    - SuperHostile
+    - Mercenary
 
 - type: npcFaction
   id: Passive
@@ -30,7 +36,7 @@
   - SimpleHostile
   - Zombie
   - Xeno
-
+  
 - type: npcFaction
   id: SimpleHostile
   hostile:
@@ -39,7 +45,9 @@
   - Passive
   - PetsNT
   - Zombie
-
+  - SuperHostile
+  - Mercenary
+  
 - type: npcFaction
   id: SimpleNeutral
 
@@ -51,6 +59,8 @@
   - Xeno
   - PetsNT
   - Zombie
+  - SuperHostile
+  - Mercenary
 
 - type: npcFaction
   id: Xeno
@@ -60,6 +70,8 @@
   - Passive
   - PetsNT
   - Zombie
+  - SuperHostile
+  - Mercenary
 
 - type: npcFaction
   id: Zombie
@@ -70,3 +82,27 @@
   - Syndicate
   - Passive
   - PetsNT
+
+- type: npcFaction
+  id: SuperHostile
+  hostile:
+  - NanoTrasen
+  - SimpleNeutral
+  - SimpleHostile
+  - Syndicate
+  - Passive
+  - PetsNT
+  - Mercenary
+  - Xeno
+  
+- type: npcFaction
+  id: Mercenary
+  hostile:
+  - NanoTrasen
+  - SimpleNeutral
+  - SimpleHostile
+  - Syndicate
+  - Passive
+  - PetsNT
+  - SuperHostile
+  - Xeno
